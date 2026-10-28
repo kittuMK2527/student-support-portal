@@ -115,3 +115,7 @@ src/
 - Grades: O ≥ 90, A+ ≥ 80, A ≥ 70, B+ ≥ 60, B ≥ 50, C ≥ 40, otherwise F.
 - Students see which team handles their ticket, not the owner's name or email.
 - Opening an Open ticket counts as acknowledging it.
+
+## Author
+
+Saimanikanta (veeraboinajashwanth@gmail.com)

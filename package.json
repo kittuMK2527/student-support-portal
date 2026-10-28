@@ -2,6 +2,8 @@
   "name": "student-support-portal",
   "private": true,
   "version": "1.0.0",
+  "description": "Student support portal: academic records and support tickets (BA assignment prototype)",
+  "author": "Saimanikanta <veeraboinajashwanth@gmail.com>",
   "type": "module",
   "scripts": {
     "dev": "vite",
