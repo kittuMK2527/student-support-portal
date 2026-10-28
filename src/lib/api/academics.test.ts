@@ -17,7 +17,7 @@ beforeEach(async () => {
 
 describe('student dashboard', () => {
   it("home shows current subjects, latest result, CGPA, attendance, tickets and the college's notices", async () => {
-    await api.auth.demoLogin('student'); // Priya: CS, year 4 -> semester 7
+    await api.auth.demoLogin('student'); // Saimanikanta: CS, year 4 -> semester 7
     const h = await api.student.home();
     expect(h.semester).toBe(7);
     expect(h.subjects).toEqual({ count: 5, credits: 18 });
@@ -99,13 +99,13 @@ describe('student dashboard', () => {
         .fields!.photo,
     ).toBeTruthy();
     const u = await api.student.updateProfile({
-      fullName: 'Priya S. Sharma',
+      fullName: 'Sai Manikanta',
       mobile: '9876543210',
       photo: 'data:image/png;base64,iVBORw0KGgo=',
       email: 'x@y.z',
       rollNumber: 'HACK',
     } as never);
-    expect(u.fullName).toBe('Priya S. Sharma');
+    expect(u.fullName).toBe('Sai Manikanta');
     expect(u.role === 'student' && u.mobile).toBe('9876543210');
     expect(u.email).toBe(DEMO.student.email);
     expect(u.role === 'student' && u.rollNumber).toBe('RCE21CS014');
@@ -133,7 +133,7 @@ describe('access rules', () => {
   });
 
   it("notices: an admin posts to their own college only; students see their college's notices only", async () => {
-    await api.auth.demoLogin('admin'); // Anita, RCE
+    await api.auth.demoLogin('admin'); // FACE Admin, RCE
     expect(
       (
         await err(

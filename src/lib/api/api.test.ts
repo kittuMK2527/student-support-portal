@@ -62,7 +62,7 @@ describe('access rules in the data layer', () => {
     expect(mine.length).toBeGreaterThan(0);
     await api.auth.demoLogin('admin');
     const others = (await api.admin.list({ pageSize: 100 })).rows.filter(
-      (r) => r.student.name !== 'Priya Sharma',
+      (r) => r.student.name !== 'Saimanikanta',
     );
     await api.auth.demoLogin('student');
     expect((await err(api.student.get(others[0].id))).status).toBe(404);
@@ -80,7 +80,7 @@ describe('access rules in the data layer', () => {
   it('a student cannot use admin functions, and an admin only sees their own colleges', async () => {
     await api.auth.demoLogin('student');
     expect((await err(api.admin.list({}))).status).toBe(403);
-    await api.auth.demoLogin('admin'); // Anita: RCE only
+    await api.auth.demoLogin('admin'); // FACE Admin: RCE only
     const rows = (await api.admin.list({ pageSize: 100 })).rows;
     expect(rows.every((r) => r.college.code === 'RCE')).toBe(true);
     await api.auth.login(DEMO.admin2.email, DEMO.admin2.password);

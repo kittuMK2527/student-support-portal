@@ -27,8 +27,8 @@ The login page has "Demo as Student" and "Demo as Admin" buttons.
 
 | Role               | Email                     | Password    | Scope                                              |
 | ------------------ | ------------------------- | ----------- | -------------------------------------------------- |
-| Student            | priya.sharma@student.demo | Student@123 | own tickets and records                            |
-| Campus manager     | anita.desai@rce.demo      | Admin@1234  | Riverside College of Engineering                   |
+| Student            | saimanikanta@student.demo | Student@123 | own tickets and records                            |
+| Campus manager     | face.admin@rce.demo       | Admin@1234  | Riverside College of Engineering                   |
 | Operations manager | rahul.menon@ops.demo      | Admin@1234  | Greenvale Arts & Science, Lakeview Business School |
 
 The other seven students (e.g. arjun.nair@student.demo) also use Student@123.
@@ -47,11 +47,11 @@ The guided demo panel ticks these steps off as they happen:
 
 1. Register a new student at Riverside College of Engineering.
 2. As that student, raise a Placement ticket. The success screen shows its ID (e.g. TKT-2026-000121).
-3. Log in as Anita. The new-ticket email is in the Email outbox.
+3. Log in as FACE Admin. The new-ticket email is in the Email outbox.
 4. Open the ticket (it moves to Under Review). Assign it to Placement / Karthik Raman with a rationale, and add an action item.
 5. Add a public update "on behalf of" Karthik Raman.
 6. Mark it resolved, then close it.
-7. The Email outbox has closure emails for both the student and Anita.
+7. The Email outbox has closure emails for both the student and FACE Admin.
 
 ## Ticket lifecycle
 

@@ -1,7 +1,7 @@
 import type { Database } from '@/types';
 
 export const DB_KEY = 'support-portal.db.v1';
-export const DB_VERSION = 2; // bump when the shape changes: older saved data is replaced by a fresh seed
+export const DB_VERSION = 3; // bump when the shape changes: older saved data is replaced by a fresh seed
 
 interface KV {
   getItem(k: string): string | null;

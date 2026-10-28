@@ -20,7 +20,7 @@ import { enrollStudent, gradeFor } from '@/lib/api/academics';
 import type { Department, Subject, TimetableSlot } from '@/types';
 
 export const SEED_STUDENT_IDS = [
-  'stu_priya',
+  'stu_saimanikanta',
   'stu_arjun',
   'stu_divya',
   'stu_rahul',
@@ -31,8 +31,8 @@ export const SEED_STUDENT_IDS = [
 ];
 
 export const DEMO = {
-  student: { email: 'priya.sharma@student.demo', password: 'Student@123' },
-  admin: { email: 'anita.desai@rce.demo', password: 'Admin@1234' },
+  student: { email: 'saimanikanta@student.demo', password: 'Student@123' },
+  admin: { email: 'face.admin@rce.demo', password: 'Admin@1234' },
   admin2: { email: 'rahul.menon@ops.demo', password: 'Admin@1234' },
 };
 
@@ -121,9 +121,9 @@ export async function buildSeed(base = new Date()): Promise<Database> {
   const admins: Admin[] = [
     await user<Admin>(
       {
-        id: 'adm_anita',
+        id: 'adm_face',
         role: 'admin',
-        fullName: 'Anita Desai',
+        fullName: 'FACE Admin',
         email: DEMO.admin.email,
         title: 'Campus Manager, RCE',
         collegeIds: ['col_rce'],
@@ -160,8 +160,8 @@ export async function buildSeed(base = new Date()): Promise<Database> {
     );
   const students: Student[] = [
     await S(
-      'stu_priya',
-      'Priya Sharma',
+      'stu_saimanikanta',
+      'Saimanikanta',
       DEMO.student.email,
       'RCE21CS014',
       'Computer Science',
@@ -269,7 +269,7 @@ export async function buildSeed(base = new Date()): Promise<Database> {
     custom?: string;
     flow?: (id: string) => Promise<void>;
   };
-  const anita = U('adm_anita'),
+  const face = U('adm_face'),
     rahul = U('adm_rahul');
   const plans: Plan[] = [
     {
@@ -305,7 +305,7 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       description:
         'The Signals and Systems lectures move too fast and there are no worked examples; most of the class is lost.',
       flow: async (id) => {
-        await step(1.5, () => be.adminGet(db, anita, id));
+        await step(1.5, () => be.adminGet(db, face, id));
       },
     },
     {
@@ -337,24 +337,24 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       },
     },
     {
-      s: 'stu_priya',
+      s: 'stu_saimanikanta',
       d: 4,
       category: 'Infrastructure',
       subject: 'Wi-Fi drops in the CS lab block',
       description:
         'The Wi-Fi in the second floor CS labs disconnects every few minutes, so online lab submissions keep failing.',
       flow: async (id) => {
-        await step(3.8, () => be.adminGet(db, anita, id));
-        await step(3.7, () => be.adminTransition(db, anita, id, 'in_progress'));
+        await step(3.8, () => be.adminGet(db, face, id));
+        await step(3.7, () => be.adminTransition(db, face, id, 'in_progress'));
         await step(3.6, () =>
-          be.adminAddAction(db, anita, id, {
+          be.adminAddAction(db, face, id, {
             text: 'Ask the IT vendor to check the access points',
-            responsible: 'Anita Desai',
+            responsible: 'FACE Admin',
             dueDate: daysAgo(-1, base).toISOString().slice(0, 10),
           }),
         );
         await step(2, () =>
-          be.adminAddUpdate(db, anita, id, {
+          be.adminAddUpdate(db, face, id, {
             message: 'The vendor is replacing two access points on Friday.',
             visibility: 'public',
           }),
@@ -374,30 +374,30 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       },
     },
     {
-      s: 'stu_priya',
+      s: 'stu_saimanikanta',
       d: 5,
       category: 'Placement',
       subject: 'Offer letter from Infotech not received',
       description:
         'I was selected in the Infotech campus drive three weeks ago but the offer letter has still not reached me.',
       flow: async (id) => {
-        await step(4.8, () => be.adminGet(db, anita, id));
+        await step(4.8, () => be.adminGet(db, face, id));
         await step(4.7, () =>
-          be.adminAssign(db, anita, id, {
+          be.adminAssign(db, face, id, {
             teamId: 'team_placement',
             ownerId: own('rce', 'placement'),
             rationale: 'Offer letters are tracked by the placement cell.',
           }),
         );
         await step(4.6, () =>
-          be.adminAddAction(db, anita, id, {
+          be.adminAddAction(db, face, id, {
             text: 'Follow up with Infotech HR on the offer letter',
             responsible: 'Karthik Raman',
             dueDate: daysAgo(-2, base).toISOString().slice(0, 10),
           }),
         );
         await step(3, () =>
-          be.adminAddUpdate(db, anita, id, {
+          be.adminAddUpdate(db, face, id, {
             message: 'Infotech HR has confirmed the letters are being issued this week.',
             visibility: 'public',
             onBehalfOfOwnerId: own('rce', 'placement'),
@@ -438,9 +438,9 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       description:
         'I applied for revaluation of Thermodynamics a month ago and the result is still not published.',
       flow: async (id) => {
-        await step(2.8, () => be.adminGet(db, anita, id));
+        await step(2.8, () => be.adminGet(db, face, id));
         await step(2.7, () =>
-          be.adminAssign(db, anita, id, {
+          be.adminAssign(db, face, id, {
             teamId: 'team_exams',
             ownerId: own('rce', 'exams'),
             rationale: 'Revaluation results come from the examination cell.',
@@ -456,11 +456,11 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       description:
         'I vacated my hostel seat at the start of the term and was promised a refund of the deposit.',
       flow: async (id) => {
-        await step(2.2, () => be.adminGet(db, anita, id));
+        await step(2.2, () => be.adminGet(db, face, id));
         await step(2.1, () =>
           be.adminRequestClarification(
             db,
-            anita,
+            face,
             id,
             'Please share the date you vacated and your bank account details for the refund.',
           ),
@@ -488,23 +488,23 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       },
     },
     {
-      s: 'stu_priya',
+      s: 'stu_saimanikanta',
       d: 10,
       category: 'Examination',
       subject: 'Internal marks missing for Compiler Design',
       description:
         'My Internal 2 marks for Compiler Design show as absent although I wrote the test.',
       flow: async (id) => {
-        await step(9.5, () => be.adminGet(db, anita, id));
+        await step(9.5, () => be.adminGet(db, face, id));
         await step(9.4, () =>
-          be.adminAssign(db, anita, id, {
+          be.adminAssign(db, face, id, {
             teamId: 'team_exams',
             ownerId: own('rce', 'exams'),
             rationale: 'Marks entry is handled by the examination cell.',
           }),
         );
         await step(6, () =>
-          be.adminAddUpdate(db, anita, id, {
+          be.adminAddUpdate(db, face, id, {
             message: 'Answer script found; marks were not uploaded. Correcting now.',
             visibility: 'public',
             onBehalfOfOwnerId: own('rce', 'exams'),
@@ -513,7 +513,7 @@ export async function buildSeed(base = new Date()): Promise<Database> {
         await step(2, () =>
           be.adminResolve(
             db,
-            anita,
+            face,
             id,
             'Your Internal 2 marks (38/50) have been uploaded and now appear on the portal.',
           ),
@@ -554,9 +554,9 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       description:
         'I paid the semester exam fee online but no receipt was generated and the portal still shows it as unpaid.',
       flow: async (id) => {
-        await step(24, () => be.adminGet(db, anita, id));
+        await step(24, () => be.adminGet(db, face, id));
         await step(23.8, () =>
-          be.adminAssign(db, anita, id, {
+          be.adminAssign(db, face, id, {
             teamId: 'team_finance',
             ownerId: own('rce', 'finance'),
             rationale: 'Payment reconciliation is done by finance.',
@@ -565,7 +565,7 @@ export async function buildSeed(base = new Date()): Promise<Database> {
         await step(21, () =>
           be.adminResolve(
             db,
-            anita,
+            face,
             id,
             'The payment was matched with the bank statement and the receipt has been emailed to you.',
           ),
@@ -573,7 +573,7 @@ export async function buildSeed(base = new Date()): Promise<Database> {
         await step(20, () =>
           be.adminClose(
             db,
-            anita,
+            face,
             id,
             'The payment was matched with the bank statement and the receipt has been emailed to you.',
           ),
@@ -677,9 +677,9 @@ export async function buildSeed(base = new Date()): Promise<Database> {
       description:
         'Our Digital Electronics lab sessions have been cancelled four times this month without a make-up session.',
       flow: async (id) => {
-        await step(14, () => be.adminGet(db, anita, id));
+        await step(14, () => be.adminGet(db, face, id));
         await step(13.5, () =>
-          be.adminAssign(db, anita, id, {
+          be.adminAssign(db, face, id, {
             teamId: 'team_academics',
             ownerId: own('rce', 'academics'),
             rationale: 'Lab scheduling is decided by the academic office.',
@@ -688,7 +688,7 @@ export async function buildSeed(base = new Date()): Promise<Database> {
         await step(6, () =>
           be.adminResolve(
             db,
-            anita,
+            face,
             id,
             'Two make-up lab sessions have been scheduled on Saturdays.',
           ),
@@ -744,7 +744,7 @@ const PERIODS: [string, string][] = [
 ];
 // [ability, attendance %]; Divya is below 75% on purpose
 const PROFILE: Record<string, [number, number]> = {
-  stu_priya: [84, 92],
+  stu_saimanikanta: [84, 92],
   stu_arjun: [62, 81],
   stu_divya: [71, 68],
   stu_rahul: [77, 88],

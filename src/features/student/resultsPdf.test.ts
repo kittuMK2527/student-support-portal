@@ -8,7 +8,7 @@ describe('results PDF', () => {
     await api.auth.demoLogin('student');
     const r = await api.student.results();
     const doc = buildResultsPdf(r, {
-      name: 'Priya Sharma',
+      name: 'Saimanikanta',
       rollNumber: 'RCE21CS014',
       department: 'Computer Science',
       year: 4,
